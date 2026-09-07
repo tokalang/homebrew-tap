@@ -10,26 +10,17 @@ jobs:
   test-formula:
     runs-on: macos-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Set up Homebrew
-        id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
-      - name: Trust and tap repository
-        run: |
-          brew trust --tap tokalang/tap || true
-          brew tap tokalang/tap "$GITHUB_WORKSPACE"
+      - name: Trust tap
+        run: brew trust --tap tokalang/tap || true
 
       - name: Install formula
-        run: |
-          brew install tokalang/tap/trg
+        run: brew install tokalang/tap/trg
 
       - name: Test formula
-        run: |
-          brew test tokalang/tap/trg
+        run: brew test tokalang/tap/trg
 
       - name: Verify CLI execution
-        run: |
-          trg --version
+        run: trg --version
